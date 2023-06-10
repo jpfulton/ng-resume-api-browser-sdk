@@ -1,1 +1,1 @@
-export * as educationGetAll from "./educationGetAll";
+export * as getAll from "./getAll";

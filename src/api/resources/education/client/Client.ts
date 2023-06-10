@@ -12,15 +12,14 @@ import * as errors from "../../../../errors";
 export declare namespace Education {
     interface Options {
         environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
-        fetcher?: core.FetchFunction;
     }
 }
 
 export class Education {
     constructor(protected readonly options: Education.Options) {}
 
-    public async educationGetAll(): Promise<JpfultonApi.Education[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getAll(): Promise<JpfultonApi.Education[]> {
+        const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
                 "education"
@@ -29,13 +28,13 @@ export class Education {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.53",
+                "X-Fern-SDK-Version": "0.0.60",
             },
             contentType: "application/json",
             timeoutMs: 10000,
         });
         if (_response.ok) {
-            return await serializers.education.educationGetAll.Response.parseOrThrow(_response.body, {
+            return await serializers.education.getAll.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -65,8 +64,8 @@ export class Education {
         }
     }
 
-    public async educationGetById(id: string): Promise<JpfultonApi.Education> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getById(id: string): Promise<JpfultonApi.Education> {
+        const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
                 `education/${id}`
@@ -75,7 +74,7 @@ export class Education {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.53",
+                "X-Fern-SDK-Version": "0.0.60",
             },
             contentType: "application/json",
             timeoutMs: 10000,

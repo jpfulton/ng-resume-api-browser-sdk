@@ -12,21 +12,20 @@ import * as errors from "../../../../errors";
 export declare namespace Test {
     interface Options {
         environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
-        fetcher?: core.FetchFunction;
     }
 }
 
 export class Test {
     constructor(protected readonly options: Test.Options) {}
 
-    public async testGet(request: JpfultonApi.TestGetRequest = {}): Promise<void> {
+    public async get(request: JpfultonApi.GetRequest = {}): Promise<void> {
         const { name } = request;
         const _queryParams = new URLSearchParams();
         if (name != null) {
             _queryParams.append("name", name);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
                 "test"
@@ -35,7 +34,7 @@ export class Test {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.53",
+                "X-Fern-SDK-Version": "0.0.60",
             },
             contentType: "application/json",
             queryParameters: _queryParams,

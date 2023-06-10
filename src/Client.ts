@@ -11,7 +11,6 @@ import { Workhistory } from "./api/resources/workhistory/client/Client";
 export declare namespace JpfultonApiClient {
     interface Options {
         environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
-        fetcher?: core.FetchFunction;
     }
 }
 

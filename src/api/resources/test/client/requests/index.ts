@@ -1,1 +1,1 @@
-export { TestGetRequest } from "./TestGetRequest";
+export { GetRequest } from "./GetRequest";

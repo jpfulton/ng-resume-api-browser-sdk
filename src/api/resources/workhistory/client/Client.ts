@@ -12,15 +12,14 @@ import * as errors from "../../../../errors";
 export declare namespace Workhistory {
     interface Options {
         environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
-        fetcher?: core.FetchFunction;
     }
 }
 
 export class Workhistory {
     constructor(protected readonly options: Workhistory.Options) {}
 
-    public async workHistoryGetAll(): Promise<JpfultonApi.WorkHistory[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getAll(): Promise<JpfultonApi.WorkHistory[]> {
+        const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
                 "workhistory"
@@ -29,13 +28,13 @@ export class Workhistory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.53",
+                "X-Fern-SDK-Version": "0.0.60",
             },
             contentType: "application/json",
             timeoutMs: 10000,
         });
         if (_response.ok) {
-            return await serializers.workhistory.workHistoryGetAll.Response.parseOrThrow(_response.body, {
+            return await serializers.workhistory.getAll.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -65,8 +64,8 @@ export class Workhistory {
         }
     }
 
-    public async workHistoryGetById(id: string): Promise<JpfultonApi.WorkHistory> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getById(id: string): Promise<JpfultonApi.WorkHistory> {
+        const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
                 `workhistory/${id}`
@@ -75,7 +74,7 @@ export class Workhistory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.53",
+                "X-Fern-SDK-Version": "0.0.60",
             },
             contentType: "application/json",
             timeoutMs: 10000,

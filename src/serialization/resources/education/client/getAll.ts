@@ -6,10 +6,8 @@ import * as serializers from "../../..";
 import * as JpfultonApi from "../../../../api";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<
-    serializers.education.educationGetAll.Response.Raw,
-    JpfultonApi.Education[]
-> = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).Education));
+export const Response: core.serialization.Schema<serializers.education.getAll.Response.Raw, JpfultonApi.Education[]> =
+    core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).Education));
 
 export declare namespace Response {
     type Raw = serializers.Education.Raw[];

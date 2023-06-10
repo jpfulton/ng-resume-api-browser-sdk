@@ -1,1 +1,1 @@
-export * as workHistoryGetAll from "./workHistoryGetAll";
+export * as getAll from "./getAll";

@@ -7,7 +7,7 @@ import * as JpfultonApi from "../../../../api";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
-    serializers.workhistory.workHistoryGetAll.Response.Raw,
+    serializers.workhistory.getAll.Response.Raw,
     JpfultonApi.WorkHistory[]
 > = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).WorkHistory));
 
