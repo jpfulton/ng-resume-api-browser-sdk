@@ -29,7 +29,7 @@ export class Education {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.47",
+                "X-Fern-SDK-Version": "0.0.50",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -75,7 +75,7 @@ export class Education {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.47",
+                "X-Fern-SDK-Version": "0.0.50",
             },
             contentType: "application/json",
             timeoutMs: 10000,
