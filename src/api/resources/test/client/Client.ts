@@ -35,7 +35,7 @@ export class Test {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.50",
+                "X-Fern-SDK-Version": "0.0.53",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
