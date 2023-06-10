@@ -35,7 +35,7 @@ export class Test {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.40",
+                "X-Fern-SDK-Version": "0.0.41",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
