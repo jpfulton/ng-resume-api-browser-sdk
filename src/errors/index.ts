@@ -1,2 +1,2 @@
-export { JpfultonApiError } from "./JpfultonApiError";
-export { JpfultonApiTimeoutError } from "./JpfultonApiTimeoutError";
+export { NgResumeApiError } from "./NgResumeApiError";
+export { NgResumeApiTimeoutError } from "./NgResumeApiTimeoutError";

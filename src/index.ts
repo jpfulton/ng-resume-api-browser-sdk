@@ -1,4 +1,4 @@
-export * as JpfultonApi from "./api";
-export { JpfultonApiClient } from "./Client";
-export { JpfultonApiEnvironment } from "./environments";
-export { JpfultonApiError, JpfultonApiTimeoutError } from "./errors";
+export * as NgResumeApi from "./api";
+export { NgResumeApiClient } from "./Client";
+export { NgResumeApiEnvironment } from "./environments";
+export { NgResumeApiError, NgResumeApiTimeoutError } from "./errors";

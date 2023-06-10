@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import * as JpfultonApi from "../../../../api";
+import * as NgResumeApi from "../../../../api";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.workhistory.getAll.Response.Raw,
-    JpfultonApi.WorkHistory[]
+    NgResumeApi.WorkHistory[]
 > = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).WorkHistory));
 
 export declare namespace Response {

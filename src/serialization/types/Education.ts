@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as JpfultonApi from "../../api";
+import * as NgResumeApi from "../../api";
 import * as core from "../../core";
 
-export const Education: core.serialization.ObjectSchema<serializers.Education.Raw, JpfultonApi.Education> =
+export const Education: core.serialization.ObjectSchema<serializers.Education.Raw, NgResumeApi.Education> =
     core.serialization.object({
         id: core.serialization.string().optional(),
         title: core.serialization.string().optional(),

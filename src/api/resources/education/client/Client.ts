@@ -4,31 +4,31 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as JpfultonApi from "../../..";
+import * as NgResumeApi from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Education {
     interface Options {
-        environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
+        environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
     }
 }
 
 export class Education {
     constructor(protected readonly options: Education.Options) {}
 
-    public async getAll(): Promise<JpfultonApi.Education[]> {
+    public async getAll(): Promise<NgResumeApi.Education[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "education"
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.60",
+                "X-Fern-SDK-Version": "0.0.3",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -43,7 +43,7 @@ export class Education {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.JpfultonApiError({
+            throw new errors.NgResumeApiError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -51,30 +51,30 @@ export class Education {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.JpfultonApiTimeoutError();
+                throw new errors.NgResumeApiTimeoutError();
             case "unknown":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getById(id: string): Promise<JpfultonApi.Education> {
+    public async getById(id: string): Promise<NgResumeApi.Education> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 `education/${id}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.60",
+                "X-Fern-SDK-Version": "0.0.3",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -89,7 +89,7 @@ export class Education {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.JpfultonApiError({
+            throw new errors.NgResumeApiError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -97,14 +97,14 @@ export class Education {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.JpfultonApiTimeoutError();
+                throw new errors.NgResumeApiTimeoutError();
             case "unknown":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     message: _response.error.errorMessage,
                 });
         }

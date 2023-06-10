@@ -4,21 +4,21 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as JpfultonApi from "../../..";
+import * as NgResumeApi from "../../..";
 import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 
 export declare namespace Test {
     interface Options {
-        environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
+        environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
     }
 }
 
 export class Test {
     constructor(protected readonly options: Test.Options) {}
 
-    public async get(request: JpfultonApi.GetRequest = {}): Promise<void> {
+    public async get(request: NgResumeApi.GetRequest = {}): Promise<void> {
         const { name } = request;
         const _queryParams = new URLSearchParams();
         if (name != null) {
@@ -27,14 +27,14 @@ export class Test {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.JpfultonApiEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "test"
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.60",
+                "X-Fern-SDK-Version": "0.0.3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -45,7 +45,7 @@ export class Test {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.JpfultonApiError({
+            throw new errors.NgResumeApiError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -53,14 +53,14 @@ export class Test {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.JpfultonApiTimeoutError();
+                throw new errors.NgResumeApiTimeoutError();
             case "unknown":
-                throw new errors.JpfultonApiError({
+                throw new errors.NgResumeApiError({
                     message: _response.error.errorMessage,
                 });
         }

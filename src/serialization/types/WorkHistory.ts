@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as JpfultonApi from "../../api";
+import * as NgResumeApi from "../../api";
 import * as core from "../../core";
 
-export const WorkHistory: core.serialization.ObjectSchema<serializers.WorkHistory.Raw, JpfultonApi.WorkHistory> =
+export const WorkHistory: core.serialization.ObjectSchema<serializers.WorkHistory.Raw, NgResumeApi.WorkHistory> =
     core.serialization.object({
         id: core.serialization.string().optional(),
         startYear: core.serialization.number().optional(),

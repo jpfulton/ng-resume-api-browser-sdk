@@ -8,14 +8,14 @@ import { Education } from "./api/resources/education/client/Client";
 import { Test } from "./api/resources/test/client/Client";
 import { Workhistory } from "./api/resources/workhistory/client/Client";
 
-export declare namespace JpfultonApiClient {
+export declare namespace NgResumeApiClient {
     interface Options {
-        environment?: core.Supplier<environments.JpfultonApiEnvironment | string>;
+        environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
     }
 }
 
-export class JpfultonApiClient {
-    constructor(protected readonly options: JpfultonApiClient.Options) {}
+export class NgResumeApiClient {
+    constructor(protected readonly options: NgResumeApiClient.Options) {}
 
     protected _education: Education | undefined;
 
