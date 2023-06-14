@@ -11,27 +11,28 @@ import { Workhistory } from "./api/resources/workhistory/client/Client";
 export declare namespace NgResumeApiClient {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
 export class NgResumeApiClient {
-    constructor(protected readonly options: NgResumeApiClient.Options) {}
+    constructor(protected readonly _options: NgResumeApiClient.Options) {}
 
     protected _education: Education | undefined;
 
     public get education(): Education {
-        return (this._education ??= new Education(this.options));
+        return (this._education ??= new Education(this._options));
     }
 
     protected _test: Test | undefined;
 
     public get test(): Test {
-        return (this._test ??= new Test(this.options));
+        return (this._test ??= new Test(this._options));
     }
 
     protected _workhistory: Workhistory | undefined;
 
     public get workhistory(): Workhistory {
-        return (this._workhistory ??= new Workhistory(this.options));
+        return (this._workhistory ??= new Workhistory(this._options));
     }
 }

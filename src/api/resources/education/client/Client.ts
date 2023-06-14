@@ -12,23 +12,25 @@ import * as errors from "../../../../errors";
 export declare namespace Education {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
 export class Education {
-    constructor(protected readonly options: Education.Options) {}
+    constructor(protected readonly _options: Education.Options) {}
 
     public async getAll(): Promise<NgResumeApi.Education[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.NgResumeApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "education"
             ),
             method: "GET",
             headers: {
+                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.0",
+                "X-Fern-SDK-Version": "0.0.7",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -67,14 +69,15 @@ export class Education {
     public async getById(id: string): Promise<NgResumeApi.Education> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.NgResumeApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 `education/${id}`
             ),
             method: "GET",
             headers: {
+                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.0",
+                "X-Fern-SDK-Version": "0.0.7",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -108,5 +111,14 @@ export class Education {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    protected async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }
