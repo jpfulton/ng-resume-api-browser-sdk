@@ -14,6 +14,7 @@ export declare namespace Test {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
         token?: core.Supplier<core.BearerToken | undefined>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -27,7 +28,7 @@ export class Test {
             _queryParams.append("name", name);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "test"
@@ -37,7 +38,7 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.2",
+                "X-Fern-SDK-Version": "0.0.16",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -73,7 +74,7 @@ export class Test {
      * @throws {@link NgResumeApi.UnauthorizedError}
      */
     public async add(request: NgResumeApi.Test): Promise<NgResumeApi.Test> {
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "test"
@@ -83,7 +84,7 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.2",
+                "X-Fern-SDK-Version": "0.0.16",
             },
             contentType: "application/json",
             body: await serializers.Test.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

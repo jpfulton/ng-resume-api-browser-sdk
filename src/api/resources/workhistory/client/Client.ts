@@ -13,6 +13,7 @@ export declare namespace Workhistory {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
         token?: core.Supplier<core.BearerToken | undefined>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -20,7 +21,7 @@ export class Workhistory {
     constructor(protected readonly _options: Workhistory.Options) {}
 
     public async getAll(): Promise<NgResumeApi.WorkHistory[]> {
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 "workhistory"
@@ -30,7 +31,7 @@ export class Workhistory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.2",
+                "X-Fern-SDK-Version": "0.0.16",
             },
             contentType: "application/json",
             timeoutMs: 10000,
@@ -67,7 +68,7 @@ export class Workhistory {
     }
 
     public async getById(id: string): Promise<NgResumeApi.WorkHistory> {
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
                 `workhistory/${id}`
@@ -77,7 +78,7 @@ export class Workhistory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.1.2",
+                "X-Fern-SDK-Version": "0.0.16",
             },
             contentType: "application/json",
             timeoutMs: 10000,

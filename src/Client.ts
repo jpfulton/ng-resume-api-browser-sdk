@@ -12,6 +12,7 @@ export declare namespace NgResumeApiClient {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
         token?: core.Supplier<core.BearerToken | undefined>;
+        fetcher?: core.FetchFunction;
     }
 }
 
