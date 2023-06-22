@@ -4,4 +4,7 @@
 
 export interface User {
     id?: string;
+    displayName?: string;
+    mail?: string;
+    memberOf?: string[];
 }

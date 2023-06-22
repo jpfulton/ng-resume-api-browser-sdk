@@ -8,10 +8,16 @@ import * as core from "../../core";
 
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, NgResumeApi.User> = core.serialization.object({
     id: core.serialization.string().optional(),
+    displayName: core.serialization.string().optional(),
+    mail: core.serialization.string().optional(),
+    memberOf: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace User {
     interface Raw {
         id?: string | null;
+        displayName?: string | null;
+        mail?: string | null;
+        memberOf?: string[] | null;
     }
 }
