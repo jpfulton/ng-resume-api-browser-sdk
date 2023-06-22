@@ -38,11 +38,11 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.24",
+                "X-Fern-SDK-Version": "0.0.27",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 10000,
+            timeoutMs: 20000,
         });
         if (_response.ok) {
             return;
@@ -84,11 +84,11 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.24",
+                "X-Fern-SDK-Version": "0.0.27",
             },
             contentType: "application/json",
             body: await serializers.Test.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 10000,
+            timeoutMs: 20000,
         });
         if (_response.ok) {
             return await serializers.Test.parseOrThrow(_response.body, {

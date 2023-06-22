@@ -34,10 +34,10 @@ export class Profile {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.24",
+                "X-Fern-SDK-Version": "0.0.27",
             },
             contentType: "application/json",
-            timeoutMs: 10000,
+            timeoutMs: 20000,
         });
         if (_response.ok) {
             return await serializers.User.parseOrThrow(_response.body, {
