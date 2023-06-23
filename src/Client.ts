@@ -5,8 +5,9 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { Education } from "./api/resources/education/client/Client";
-import { Profile } from "./api/resources/profile/client/Client";
+import { Users } from "./api/resources/users/client/Client";
 import { Test } from "./api/resources/test/client/Client";
+import { Profile } from "./api/resources/profile/client/Client";
 import { Workhistory } from "./api/resources/workhistory/client/Client";
 
 export declare namespace NgResumeApiClient {
@@ -26,16 +27,22 @@ export class NgResumeApiClient {
         return (this._education ??= new Education(this._options));
     }
 
-    protected _profile: Profile | undefined;
+    protected _users: Users | undefined;
 
-    public get profile(): Profile {
-        return (this._profile ??= new Profile(this._options));
+    public get users(): Users {
+        return (this._users ??= new Users(this._options));
     }
 
     protected _test: Test | undefined;
 
     public get test(): Test {
         return (this._test ??= new Test(this._options));
+    }
+
+    protected _profile: Profile | undefined;
+
+    public get profile(): Profile {
+        return (this._profile ??= new Profile(this._options));
     }
 
     protected _workhistory: Workhistory | undefined;

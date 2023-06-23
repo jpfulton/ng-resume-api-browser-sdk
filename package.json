@@ -1,6 +1,6 @@
 {
     "name": "@jpfulton/ng-resume-api-browser-sdk",
-    "version": "0.0.33",
+    "version": "0.0.36",
     "private": false,
     "repository": "https://github.com/jpfulton/ng-resume-api-browser-sdk",
     "main": "./index.js",
