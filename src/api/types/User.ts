@@ -8,5 +8,6 @@ export interface User {
     id?: string;
     displayName?: string;
     mail?: string;
+    identities?: NgResumeApi.Identity[];
     memberOf?: NgResumeApi.Group[];
 }
