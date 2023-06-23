@@ -1,3 +1,3 @@
 export * as education from "./education";
-export * as profile from "./profile";
+export * as users from "./users";
 export * as workhistory from "./workhistory";
