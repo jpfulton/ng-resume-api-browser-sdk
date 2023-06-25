@@ -6,8 +6,10 @@ import * as NgResumeApi from "..";
 
 export interface User {
     id?: string;
+    userPrincipalName?: string;
     displayName?: string;
-    mail?: string;
+    givenName?: string;
+    surname?: string;
     identities?: NgResumeApi.Identity[];
     memberOf?: NgResumeApi.Group[];
 }

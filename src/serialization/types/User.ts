@@ -8,8 +8,10 @@ import * as core from "../../core";
 
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, NgResumeApi.User> = core.serialization.object({
     id: core.serialization.string().optional(),
+    userPrincipalName: core.serialization.string().optional(),
     displayName: core.serialization.string().optional(),
-    mail: core.serialization.string().optional(),
+    givenName: core.serialization.string().optional(),
+    surname: core.serialization.string().optional(),
     identities: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("..")).Identity))
         .optional(),
@@ -19,8 +21,10 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, NgResum
 export declare namespace User {
     interface Raw {
         id?: string | null;
+        userPrincipalName?: string | null;
         displayName?: string | null;
-        mail?: string | null;
+        givenName?: string | null;
+        surname?: string | null;
         identities?: serializers.Identity.Raw[] | null;
         memberOf?: serializers.Group.Raw[] | null;
     }
