@@ -34,7 +34,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.45",
+                "X-Fern-SDK-Version": "0.0.48",
             },
             contentType: "application/json",
             timeoutMs: 20000,

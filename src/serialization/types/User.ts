@@ -12,6 +12,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, NgResum
     displayName: core.serialization.string().optional(),
     givenName: core.serialization.string().optional(),
     surname: core.serialization.string().optional(),
+    federatedIssuer: core.serialization.string().optional(),
     identities: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("..")).Identity))
         .optional(),
@@ -25,6 +26,7 @@ export declare namespace User {
         displayName?: string | null;
         givenName?: string | null;
         surname?: string | null;
+        federatedIssuer?: string | null;
         identities?: serializers.Identity.Raw[] | null;
         memberOf?: serializers.Group.Raw[] | null;
     }

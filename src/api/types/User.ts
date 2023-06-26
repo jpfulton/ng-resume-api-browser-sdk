@@ -10,6 +10,7 @@ export interface User {
     displayName?: string;
     givenName?: string;
     surname?: string;
+    federatedIssuer?: string;
     identities?: NgResumeApi.Identity[];
     memberOf?: NgResumeApi.Group[];
 }
