@@ -8,8 +8,10 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "declaration": true,
+        "emitDeclarationOnly": true,
+        "sourceMap": true,
         "noUnusedParameters": true,
-        "outDir": "dist",
+        "outDir": "types",
         "rootDir": "src",
         "baseUrl": "src"
     },
