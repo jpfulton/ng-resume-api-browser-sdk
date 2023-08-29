@@ -16,12 +16,16 @@ export declare namespace Test {
         token?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Test {
     constructor(protected readonly _options: Test.Options) {}
 
-    public async get(request: NgResumeApi.GetRequest = {}): Promise<void> {
+    public async get(request: NgResumeApi.GetRequest = {}, requestOptions?: Test.RequestOptions): Promise<void> {
         const { name } = request;
         const _queryParams = new URLSearchParams();
         if (name != null) {
@@ -38,11 +42,11 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.48",
+                "X-Fern-SDK-Version": "0.0.63",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 20000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
             return;
@@ -73,7 +77,7 @@ export class Test {
     /**
      * @throws {@link NgResumeApi.UnauthorizedError}
      */
-    public async add(request: NgResumeApi.Test): Promise<NgResumeApi.Test> {
+    public async add(request: NgResumeApi.Test, requestOptions?: Test.RequestOptions): Promise<NgResumeApi.Test> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
@@ -84,11 +88,11 @@ export class Test {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.48",
+                "X-Fern-SDK-Version": "0.0.63",
             },
             contentType: "application/json",
             body: await serializers.Test.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 20000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
             return await serializers.Test.parseOrThrow(_response.body, {

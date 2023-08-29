@@ -15,6 +15,10 @@ export declare namespace Users {
         token?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Users {
@@ -23,7 +27,7 @@ export class Users {
     /**
      * @throws {@link NgResumeApi.UnauthorizedError}
      */
-    public async getAll(): Promise<NgResumeApi.User[]> {
+    public async getAll(requestOptions?: Users.RequestOptions): Promise<NgResumeApi.User[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
@@ -34,10 +38,10 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.48",
+                "X-Fern-SDK-Version": "0.0.63",
             },
             contentType: "application/json",
-            timeoutMs: 20000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
             return await serializers.users.getAll.Response.parseOrThrow(_response.body, {

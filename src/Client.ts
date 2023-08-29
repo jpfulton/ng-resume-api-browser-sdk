@@ -16,6 +16,10 @@ export declare namespace NgResumeApiClient {
         token?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class NgResumeApiClient {

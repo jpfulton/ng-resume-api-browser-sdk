@@ -15,12 +15,16 @@ export declare namespace Workhistory {
         token?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Workhistory {
     constructor(protected readonly _options: Workhistory.Options) {}
 
-    public async getAll(): Promise<NgResumeApi.WorkHistory[]> {
+    public async getAll(requestOptions?: Workhistory.RequestOptions): Promise<NgResumeApi.WorkHistory[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
@@ -31,10 +35,10 @@ export class Workhistory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.48",
+                "X-Fern-SDK-Version": "0.0.63",
             },
             contentType: "application/json",
-            timeoutMs: 20000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
             return await serializers.workhistory.getAll.Response.parseOrThrow(_response.body, {
@@ -67,7 +71,7 @@ export class Workhistory {
         }
     }
 
-    public async getById(id: string): Promise<NgResumeApi.WorkHistory> {
+    public async getById(id: string, requestOptions?: Workhistory.RequestOptions): Promise<NgResumeApi.WorkHistory> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
@@ -78,10 +82,10 @@ export class Workhistory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.48",
+                "X-Fern-SDK-Version": "0.0.63",
             },
             contentType: "application/json",
-            timeoutMs: 20000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
             return await serializers.WorkHistory.parseOrThrow(_response.body, {
