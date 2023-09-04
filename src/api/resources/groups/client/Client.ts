@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
-export declare namespace Education {
+export declare namespace Groups {
     interface Options {
         environment?: core.Supplier<environments.NgResumeApiEnvironment | string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -21,14 +21,17 @@ export declare namespace Education {
     }
 }
 
-export class Education {
-    constructor(protected readonly _options: Education.Options) {}
+export class Groups {
+    constructor(protected readonly _options: Groups.Options) {}
 
-    public async getAll(requestOptions?: Education.RequestOptions): Promise<NgResumeApi.Education[]> {
+    /**
+     * @throws {@link NgResumeApi.UnauthorizedError}
+     */
+    public async getAll(requestOptions?: Groups.RequestOptions): Promise<NgResumeApi.Group[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
-                "education"
+                "groups"
             ),
             method: "GET",
             headers: {
@@ -41,7 +44,7 @@ export class Education {
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
-            return await serializers.education.getAll.Response.parseOrThrow(_response.body, {
+            return await serializers.groups.getAll.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -50,10 +53,15 @@ export class Education {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.NgResumeApiError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new NgResumeApi.UnauthorizedError(_response.error.body);
+                default:
+                    throw new errors.NgResumeApiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -71,13 +79,16 @@ export class Education {
         }
     }
 
-    public async getById(id: string, requestOptions?: Education.RequestOptions): Promise<NgResumeApi.Education> {
+    /**
+     * @throws {@link NgResumeApi.UnauthorizedError}
+     */
+    public async addUser(groupId: string, requestOptions?: Groups.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
-                `education/${id}`
+                `groups/${groupId}/users`
             ),
-            method: "GET",
+            method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
@@ -88,19 +99,69 @@ export class Education {
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
-            return await serializers.Education.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return;
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.NgResumeApiError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new NgResumeApi.UnauthorizedError(_response.error.body);
+                default:
+                    throw new errors.NgResumeApiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.NgResumeApiError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.NgResumeApiTimeoutError();
+            case "unknown":
+                throw new errors.NgResumeApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @throws {@link NgResumeApi.UnauthorizedError}
+     */
+    public async removeUser(groupId: string, userId: string, requestOptions?: Groups.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
+                `groups/${groupId}/users/${userId}`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
+                "X-Fern-SDK-Version": "0.0.68",
+            },
+            contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new NgResumeApi.UnauthorizedError(_response.error.body);
+                default:
+                    throw new errors.NgResumeApiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

@@ -5,6 +5,7 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { Education } from "./api/resources/education/client/Client";
+import { Groups } from "./api/resources/groups/client/Client";
 import { Profile } from "./api/resources/profile/client/Client";
 import { Test } from "./api/resources/test/client/Client";
 import { Users } from "./api/resources/users/client/Client";
@@ -29,6 +30,12 @@ export class NgResumeApiClient {
 
     public get education(): Education {
         return (this._education ??= new Education(this._options));
+    }
+
+    protected _groups: Groups | undefined;
+
+    public get groups(): Groups {
+        return (this._groups ??= new Groups(this._options));
     }
 
     protected _profile: Profile | undefined;
