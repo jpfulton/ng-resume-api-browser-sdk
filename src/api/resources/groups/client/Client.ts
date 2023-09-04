@@ -38,7 +38,7 @@ export class Groups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.68",
+                "X-Fern-SDK-Version": "0.0.71",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
@@ -82,7 +82,11 @@ export class Groups {
     /**
      * @throws {@link NgResumeApi.UnauthorizedError}
      */
-    public async addUser(groupId: string, requestOptions?: Groups.RequestOptions): Promise<void> {
+    public async addUser(
+        groupId: string,
+        request: NgResumeApi.User,
+        requestOptions?: Groups.RequestOptions
+    ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.NgResumeApiEnvironment.Default,
@@ -93,9 +97,10 @@ export class Groups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.68",
+                "X-Fern-SDK-Version": "0.0.71",
             },
             contentType: "application/json",
+            body: await serializers.User.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
         });
         if (_response.ok) {
@@ -143,7 +148,7 @@ export class Groups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.68",
+                "X-Fern-SDK-Version": "0.0.71",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,

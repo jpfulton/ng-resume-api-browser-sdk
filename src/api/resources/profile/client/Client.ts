@@ -38,7 +38,7 @@ export class Profile {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@jpfulton/ng-resume-api-browser-sdk",
-                "X-Fern-SDK-Version": "0.0.68",
+                "X-Fern-SDK-Version": "0.0.71",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
