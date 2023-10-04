@@ -1,20 +1,43 @@
 name: ci
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
 
 jobs:
   compile:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      checks: write
+      pull-requests: write
+      statuses: write
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up node
         uses: actions/setup-node@v3
 
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Danger
+        if: (github.event_name == 'pull_request' && github.event.action != 'closed')
+        uses: jpfulton/danger-js-action@main
+        with:
+          dangerfile: https://raw.githubusercontent.com/jpfulton/jpfulton-devops-config/main/danger-files/dangerfile-node-project.ts
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Compile
-        run: yarn && yarn build
+        run: yarn build
   
   publish:
     needs: [ compile ]
@@ -23,7 +46,7 @@ jobs:
     
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up node
         uses: actions/setup-node@v3
